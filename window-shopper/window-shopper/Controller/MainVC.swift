@@ -13,6 +13,9 @@ class MainVC: UIViewController {
     @IBOutlet weak var wageTF: CurrencyTextField!
     @IBOutlet weak var itemPriceTF: CurrencyTextField!
     
+    @IBOutlet weak var resultLabel: UILabel!
+    @IBOutlet weak var hourLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,8 +30,23 @@ class MainVC: UIViewController {
     }
 
     @objc func calculate() {
-        print("Sakuke")
+        if let wageTf = wageTF.text, let itemPriceTf = itemPriceTF.text {
+            if let wage = Double(wageTf), let price = Double(itemPriceTf) {
+                view.endEditing(true)
+                resultLabel.isHidden = false
+                hourLabel.isHidden = false
+                resultLabel.text = "\(Wage.getHours(forWage: wage, andPrice: price))"
+            }
+        }
+        
     }
 
+    @IBAction func clearBtnPressed(_ sender: Any) {
+        resultLabel.isHidden = true
+        hourLabel.isHidden = true
+        wageTF.text = " "
+        itemPriceTF.text = " "
+        
+    }
 }
 
